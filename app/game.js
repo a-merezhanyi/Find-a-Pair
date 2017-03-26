@@ -72,6 +72,11 @@ function openScores(gameOver) {
 
 function closeBoard() {
   toggleModal(this);
+  audio.gainNodeGame.gain.exponentialRampToValueAtTime(0.00001, audio.context.currentTime + 3.0);
+  audio.musicGame.stop(audio.context.currentTime + 3.0);
+  createAudio();
+  audio.gainNodeMenu.gain.setValueAtTime(0.07, audio.context.currentTime);
+  audio.musicMenu.start();
   
   setTimeout(() => {
     elements.readyShevron.classList.remove('u--unscale');
@@ -88,6 +93,12 @@ function openBoard() {
   elements.verSegments = 2;
   elements.horSegments = 2;
   toggleModal(this);
+  audio.gainNodeMenu.gain.exponentialRampToValueAtTime(0.00001, audio.context.currentTime + 3.0);
+  audio.musicMenu.stop(audio.context.currentTime + 3.0);
+  createAudio();
+  audio.gainNodeGame.gain.setValueAtTime(0.1, audio.context.currentTime);
+  audio.musicGame.start();
+  
   setTimeout(() => {
     elements.readyShevron.classList.add('u--unscale');
     elements.startCounter.forEach((el) => {
