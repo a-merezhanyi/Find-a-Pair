@@ -126,12 +126,17 @@ function openBoard() {
 
 function checkForDuplicate() {
   if (this.classList.contains('selected')) {
+    this.classList.remove('selected');
+    elements.selected.pop();
+    playSound(audio.deselectChip);
     return;
   }
+  (!elements.selected.length) && playSound(audio.selectChip);
   this.classList.add('selected');
   elements.selected.push(this);
     if (elements.selected.length > 1) {
       if (elements.selected[0].classList.value === elements.selected[1].classList.value) {
+        playSound(audio.selectChip);
         nextRound();
       } else {
         gameOver();

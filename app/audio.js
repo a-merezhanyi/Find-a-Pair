@@ -9,7 +9,9 @@ const audio = {
   cotext: null,
   bufferLoader: null,
   clickSound: 2,
-  gameOver: 3
+  gameOver: 3,
+  selectChip: 4,
+  deselectChip: 5
 }
 window.onload = init;
 
@@ -24,7 +26,9 @@ function init() {
       'agp-ambient-reality-pad-4.ogg',
       'planetjazzbass-the-death-of-gagarin.ogg',
       'finger-snap.ogg',
-      'Failure-sound-effect.ogg',
+      'failure-sound-effect.ogg',
+      'button-sound.ogg',
+      'button-sound-effect.ogg'
     ],
     finishedLoading
     );
