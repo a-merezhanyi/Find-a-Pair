@@ -3,7 +3,7 @@
 ## Find a Pair - a simple CSS + JS game
 
 Press "Start" to begin the game. You see a board with geometric figures.<br>
-You have to find two identical. Click on both to win a round.<br>
+You have to find two identicals. Click on both to win a round.<br>
 Do your best in 55 seconds. Watch the red line (a time counter).<br>
 
 If it's too hard - uncomment the line 163 in game.js to see hints. ;)
