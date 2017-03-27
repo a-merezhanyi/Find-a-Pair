@@ -7,7 +7,9 @@ const audio = {
   musicMenu: null,
   musicGame: null,
   cotext: null,
-  bufferLoader: null
+  bufferLoader: null,
+  clickSound: 2,
+  gameOver: 3
 }
 window.onload = init;
 
@@ -20,7 +22,9 @@ function init() {
     audio.context,
     [
       'agp-ambient-reality-pad-4.ogg',
-      'planetjazzbass-the-death-of-gagarin.ogg'
+      'planetjazzbass-the-death-of-gagarin.ogg',
+      'finger-snap.ogg',
+      'Failure-sound-effect.ogg',
     ],
     finishedLoading
     );
@@ -50,4 +54,11 @@ function createAudio() {
   audio.musicGame.connect(audio.gainNodeGame);
   audio.gainNodeGame.connect(audio.context.destination);
   audio.gainNodeGame.gain.exponentialRampToValueAtTime(1.0, audio.context.currentTime + 3.0);
+}
+
+function playSound(sound) {
+  let source = audio.context.createBufferSource();
+  source.buffer = audio.bufferList[sound];
+  source.connect(audio.context.destination);
+  source.start();
 }

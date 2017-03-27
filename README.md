@@ -21,3 +21,4 @@ https://www.looperman.com/loops/detail/54034/ambient-reality-pad-4-by-agp-free-1
 
 http://www.orangefreesounds.com/finger-snap/<br>
 http://www.orangefreesounds.com/failure-sound-effect/<br>
+http://www.orangefreesounds.com/digital-camera-click-sound/

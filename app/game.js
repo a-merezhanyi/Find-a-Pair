@@ -41,17 +41,31 @@ elements.exitLnk.addEventListener('click', closeBoard);
 elements.scoresLnk.addEventListener('click', openScores);
 elements.startCounter[0].addEventListener('transitionend', gameOver);
 
+['scoresLnk', 'scoresBox', 'aboutLnk', 'aboutBox']
+  .forEach((el) => {
+    elements[el].addEventListener('click', (e) => {
+      playSound(audio.clickSound);
+    });
+  });
+
+['scoresBox', 'menuBox', 'aboutBox']
+  .forEach((el) => {
+    elements[el].addEventListener('transitionend', (e) => {
+      if ('visibility' === e.propertyName && elements[el] === e.target) {
+        elements.isAnimated = false;
+      }
+    });
+  });
+
 function toggleModal(_this) {
   _this = (this === window) ? _this : this;
   if (elements.isAnimated) {
     return false;
   }
   elements.isAnimated = true;
+  
   elements[_this.dataset.hide].classList.add('u--blur-fadeout');
   elements[_this.dataset.show].classList.remove('u--blur-fadeout');
-  elements[_this.dataset.hide].addEventListener('transitionend', () => {
-    elements.isAnimated = false;
-}, false);
 }
 
 function openScores(gameOver) {
@@ -176,6 +190,7 @@ function nextRound() {
 }
 
 function gameOver() {
+  playSound(audio.gameOver);
   elements.scores.unshift(elements.currentScores);
   elements.chips.forEach((el) => {
     el.classList.remove('chip--clockwise', 'chip--c-clockwise', 'chip--tick', 'chip--c-tick', 'chip--phase', 'chip--c-phase');
