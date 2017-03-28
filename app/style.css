@@ -315,8 +315,8 @@
           filter: blur(30px);
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: -webkit-filter .5s, opacity .5s linear;
-  transition: filter .5s, opacity .5s linear;
+  -webkit-transition: all .5s linear;
+  transition: all .5s linear;
 }
 
 .u--fadeout {
