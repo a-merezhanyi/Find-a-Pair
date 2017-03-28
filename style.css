@@ -149,9 +149,9 @@
 }
 
 .about .button--about {
-  width: 300px;
-  height: 360px;
-  left: calc(50% - 150px);
+  width: 380px;
+  height: 400px;
+  left: calc(50% - 190px);
 }
 .about__text {
   line-height: 28px;
@@ -168,6 +168,8 @@
 }
 .chip.u--selected {
   box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.8) inset, 0 0 0 1px blue, 0 0 20px blue;
+  -webkit-transition: all .5s linear;
+  transition: all .5s linear;
 }
 .chip:hover, .chip.selected {
   box-shadow: 0 0 0 2px rgba(255, 255, 0, 0.8) inset, 0 0 0 1px #ffc800, 0 0 20px yellow;
