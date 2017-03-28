@@ -28,9 +28,11 @@ const elements = {
   boardVerSize: 480,
   figures: [],
   chips: [],
-  selected: []
+  selected: [],
+  nextHint: null
 };
 const randInteger = (min, max) => Math.round(Math.random() * (max - min) + min);
+const isStorage = 'undefined' !== typeof localStorage;
 
 ['scoresBox', 'aboutLnk', 'aboutBox']
   .forEach((el) => {
@@ -56,6 +58,10 @@ elements.startCounter[0].addEventListener('transitionend', gameOver);
       }
     });
   });
+
+if (isStorage && localStorage.getItem('fap-scores')) {
+  elements.scores = localStorage.getItem('fap-scores').split(',');
+}; 
 
 function toggleModal(_this) {
   _this = (this === window) ? _this : this;
@@ -135,7 +141,9 @@ function checkForDuplicate() {
   this.classList.add('selected');
   elements.selected.push(this);
     if (elements.selected.length > 1) {
-      if (elements.selected[0].classList.value === elements.selected[1].classList.value) {
+      let chipFist = elements.selected[0].classList.value.split(' ');
+      let chipSecond = elements.selected[1].classList.value.split(' ');
+      if (chipFist[1] === chipSecond[1] && chipFist[2] === chipSecond[2] && chipFist[3] === chipSecond[3]) {
         playSound(audio.selectChip);
         nextRound();
       } else {
@@ -154,13 +162,14 @@ function generateChips() {
   const second = randInteger(numFigures/2, numFigures - 1);
   elements.selected.length = 0;
   elements.figures.length = 0;
+  elements.nextHint && clearTimeout(elements.nextHint);
   
   while(elements.figures.length < numFigures) {
     let x = randInteger(0, elements.boardHorSize / elements.horSegments - 55);
     let y = randInteger(0, elements.boardVerSize / elements.verSegments - 50);
     let styles = 'chip--' + elements.shape[randInteger(0, 1)] + ' chip--' + elements.background[randInteger(0, 4)] + ' chip--' + elements.rotation[randInteger(0, 6)];
     if (!computedStyles.includes(styles)) {
-      // (first === elements.figures.length) && (styles += ' u--selected'); // uncomment this for hints
+      (first === elements.figures.length) && (styles += ' js-selected');
       (second === elements.figures.length) && (styles = computedStyles[first]);
       htmlTemplate = `<div class="chip ${styles}" style="top:${yPos + y}px; left:${xPos + x}px"></div>`;
       computedStyles.push(styles);
@@ -172,6 +181,12 @@ function generateChips() {
       elements.figures.push(htmlTemplate);
     }
   }
+  
+  elements.nextHint = setTimeout(() => {
+    document.querySelectorAll('.js-selected').forEach((el) => {
+      el.classList.add('u--selected');
+    });
+  }, 8000);
   
   playboard.innerHTML = elements.figures.join('');
   
@@ -197,12 +212,15 @@ function nextRound() {
 function gameOver() {
   playSound(audio.gameOver);
   elements.scores.unshift(elements.currentScores);
+  elements.nextHint && clearTimeout(elements.nextHint);
+  isStorage && localStorage.setItem('fap-scores', elements.scores);
+  
+  readyShevron.innerHTML = (elements.startCounter[0].offsetHeight) ? 'Game over' : 'Time\'s up';
+  readyShevron.classList.remove('u--unscale');
   elements.chips.forEach((el) => {
     el.classList.remove('chip--clockwise', 'chip--c-clockwise', 'chip--tick', 'chip--c-tick', 'chip--phase', 'chip--c-phase');
     setTimeout(() => {
       el.classList.add('u--unscale');
-      readyShevron.innerHTML = 'Game over';
-      readyShevron.classList.remove('u--unscale');
     }, 0);
   });
   setTimeout(() => {

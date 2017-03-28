@@ -6,8 +6,6 @@ Press "Start" to begin the game. You see a board with geometric figures.<br>
 You have to find two identical. Click on both to win a round.<br>
 Do your best in 55 seconds. Watch the red line (a time counter).<br>
 
-If it's too hard - uncomment the line 163 in game.js to see hints. ;)
-
 **coded by Anatol Merezhanyi @e1r0nd_crg**<br>
 **https://www.youtube.com/c/AnatolMerezhanyi**<br>
 
