@@ -9,7 +9,13 @@ Do your best in 55 seconds. Watch the red line (a time counter).<br>
 **coded by Anatol Merezhanyi @e1r0nd_crg**<br>
 **https://www.youtube.com/c/AnatolMerezhanyi**<br>
 
-### Used
+## Run localy
+```
+npm i
+npm start
+```
+
+## Used
 http://lea.verou.me/css3patterns/<br>
 http://codepen.io/davidicus/pen/emgQKJ<br>
 http://codepen.io/ndeniche/pen/ljbDL<br>
