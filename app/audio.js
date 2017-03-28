@@ -3,66 +3,89 @@
  * coded by Anatol Merezhanyi @e1r0nd_crg
  * https://www.youtube.com/c/AnatolMerezhanyi
  */
-const audio = {
-  musicMenu: null,
-  musicGame: null,
-  cotext: null,
-  bufferLoader: null,
-  clickSound: 2,
-  gameOver: 3,
-  selectChip: 4,
-  deselectChip: 5
-}
-window.onload = init;
+const audio = (function() {
+  const music = {
+    'menu': null,
+    'gainNodeMenu': null,
+    'game': null,
+    'gainNodeGame': null
+  };
+  const sounds = {
+    'clickSound': 2,
+    'gameOver': 3,
+    'selectChip': 4,
+    'deselectChip': 5,
+  }
+  let cotext = null;
+  let bufferLoader = null;
+  let bufferList = [];
 
-function init() {
-  // Fix up prefixing
-  window.AudioContext = window.AudioContext || window.webkitAudioContext;
-  audio.context = new AudioContext();
-
-  audio.bufferLoader = new BufferLoader(
-    audio.context,
-    [
-      'agp-ambient-reality-pad-4.ogg',
-      'planetjazzbass-the-death-of-gagarin.ogg',
-      'finger-snap.ogg',
-      'failure-sound-effect.ogg',
-      'button-sound.ogg',
-      'button-sound-effect.ogg'
-    ],
-    finishedLoading
-    );
-
-  audio.bufferLoader.load();
-}
-
-function finishedLoading(bufferList) {
-  audio.bufferList = bufferList;
-  createAudio();
-  audio.musicMenu.start();
-}
-
-function createAudio() {
-  audio.musicMenu = audio.context.createBufferSource();
-  audio.gainNodeMenu = audio.context.createGain();
-  audio.musicMenu.buffer = audio.bufferList[0];
-  audio.musicMenu.loop = true;
-  audio.gainNodeMenu.gain.setValueAtTime(0.01, audio.context.currentTime);
-  audio.musicMenu.connect(audio.gainNodeMenu);
-  audio.gainNodeMenu.connect(audio.context.destination);
-  audio.gainNodeMenu.gain.exponentialRampToValueAtTime(1.0, audio.context.currentTime + 3.0);
+  function init() {
+    // Fix up prefixing
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    context = new AudioContext();
   
-  audio.musicGame = audio.context.createBufferSource();
-  audio.gainNodeGame = audio.context.createGain();
-  audio.musicGame.buffer = audio.bufferList[1];
-  audio.musicGame.connect(audio.gainNodeGame);
-  audio.gainNodeGame.connect(audio.context.destination);
-  audio.gainNodeGame.gain.exponentialRampToValueAtTime(1.0, audio.context.currentTime + 3.0);
-}
+    bufferLoader = new BufferLoader(
+      context,
+      [
+        'agp-ambient-reality-pad-4.ogg',
+        'planetjazzbass-the-death-of-gagarin.ogg',
+        'finger-snap.ogg',
+        'failure-sound-effect.ogg',
+        'button-sound.ogg',
+        'button-sound-effect.ogg'
+      ],
+      finishedLoading
+    );
+  
+    bufferLoader.load();
+  }
 
-function playSound(sound) {
-  let source = audio.context.createBufferSource();
-  source.buffer = audio.bufferList[sound];
-  source.connect(audio.context.destination);
-  source.start();
-}
+  function finishedLoading(bufferedList) {
+    bufferList = bufferedList;
+    createAudio();
+    music.menu.start();
+  }
+
+  function createAudio() {
+    music.menu = context.createBufferSource();
+    music.gainNodeMenu = context.createGain();
+    music.menu.buffer = bufferList[0];
+    music.menu.loop = true;
+    music.gainNodeMenu.gain.setValueAtTime(0.01, context.currentTime);
+    music.menu.connect(music.gainNodeMenu);
+    music.gainNodeMenu.connect(context.destination);
+    music.gainNodeMenu.gain.exponentialRampToValueAtTime(1.0, context.currentTime + 3.0);
+
+    music.game = context.createBufferSource();
+    music.gainNodeGame = context.createGain();
+    music.game.buffer = bufferList[1];
+    music.game.connect(music.gainNodeGame);
+    music.gainNodeGame.connect(context.destination);
+    music.gainNodeGame.gain.exponentialRampToValueAtTime(1.0, context.currentTime + 3.0);
+  }
+  
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
+  window.onload = init;
+
+  return {
+    swapMusic: function(from, to) {
+      music['gainNode' + capitalize(from)].gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 3.0);
+      music[from].stop(context.currentTime + 3.0);
+      createAudio();
+      music['gainNode' + capitalize(to)].gain.setValueAtTime(0.07, context.currentTime);
+      music[to].start();
+    },
+
+    playSound: function(sound) {
+      let source = context.createBufferSource();
+      source.buffer = bufferList[sounds[sound]];
+      source.connect(context.destination);
+      source.start();
+    }
+  }
+}());
+
