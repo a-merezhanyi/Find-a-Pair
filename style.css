@@ -47,8 +47,8 @@
   outline-color: rgba(255, 255, 255, 0);
   outline-offset: 25px;
   text-shadow: #427388 1px 1px 2px;
-  -webkit-transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  -webkit-transition: outline 1s, outline-offset 1s, box-shadow 1s, text-shadow 1s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: outline 1s, outline-offset 1s, box-shadow 1s, text-shadow 1s 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .button--teal {
   text-shadow: #333 1px 1px 3px;
@@ -75,14 +75,14 @@
   font-size: 48px;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
-  -webkit-transition: all .75s linear;
-  transition: all .75s linear;
+  -webkit-transition: -webkit-transform .75s linear;
+  transition: transform .75s linear;
 }
 .close:hover {
   -webkit-transform: rotate(-135deg);
           transform: rotate(-135deg);
-  -webkit-transition: all .3s linear;
-  transition: all .3s linear;
+  -webkit-transition: -webkit-transform .3s linear;
+  transition: transform .3s linear;
 }
 
 .start__board {
@@ -107,8 +107,8 @@
   position: relative;
   width: 490px;
   height: 100%;
-  -webkit-transition: all 1s linear;
-  transition: all 1s linear;
+  -webkit-transition: opacity 1s linear;
+  transition: opacity 1s linear;
 }
 .start__ready {
   position: absolute;
@@ -125,7 +125,7 @@
   -webkit-transform: scale(1);
           transform: scale(1);
   -webkit-transition: all 0.75s cubic-bezier(0.62, 0.63, 0.06, 1.65);
-  transition: all 0.75s cubic-bezier(0.62, 0.63, 0.06, 1.65);
+          transition: all 0.75s cubic-bezier(0.62, 0.63, 0.06, 1.65);
 }
 .start__counter {
   width: 5px;
@@ -133,11 +133,10 @@
   background: #D50000;
 }
 .start__counter--collapse {
-  width: 5px;
-  height: 0;
-  background: #D50000;
-  -webkit-transition: height 55s linear;
-  transition: height 55s linear;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transition:-webkit-transform 55s linear;
+          transition: transform 55s linear;
 }
 
 .scores .button--scores {
@@ -165,16 +164,18 @@
   height: 50px;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8) inset, 0 0 0 1px #ffc8ff, 0 0 20px white;
   cursor: pointer;
+  -webkit-transition: box-shadow .5s linear;
+  transition: box-shadow .5s linear;
 }
 .chip.u--selected {
   box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.8) inset, 0 0 0 1px blue, 0 0 20px blue;
-  -webkit-transition: all .5s linear;
-  transition: all .5s linear;
+  -webkit-transition: box-shadow .5s cubic-bezier(0.75, -0.55, 0.81, 0.51);
+  transition: box-shadow .5s linear;
 }
 .chip:hover, .chip.selected {
   box-shadow: 0 0 0 2px rgba(255, 255, 0, 0.8) inset, 0 0 0 1px #ffc800, 0 0 20px yellow;
-  -webkit-transition: all .5s linear;
-  transition: all .5s linear;
+  -webkit-transition: box-shadow .5s linear;
+  transition: box-shadow .5s linear;
 }
 .chip--round {
   border-radius: 50px;
@@ -304,8 +305,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-transition: all .5s linear;
-  transition: all .5s linear;
+  -webkit-transition: -webkit-filter .5s, opacity .5s linear;
+  transition: filter .5s, opacity .5s linear;
   color: #fff;
 }
 
@@ -314,8 +315,8 @@
           filter: blur(30px);
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: all .5s linear;
-  transition: all .5s linear;
+  -webkit-transition: -webkit-filter .5s, opacity .5s linear;
+  transition: filter .5s, opacity .5s linear;
 }
 
 .u--fadeout {
@@ -325,6 +326,7 @@
   transition: all .33s linear;
 }
 
+.chip.u--unscale,
 .u--unscale {
   -webkit-transform: scale(0);
           transform: scale(0);

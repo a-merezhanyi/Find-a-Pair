@@ -15,6 +15,7 @@ const elements = {
   scoresList: document.querySelector('#scoresList'),
   readyShevron: document.querySelector('#readyShevron'),
   playboard: document.querySelector('#playboard'),
+  aboutExample: document.querySelector('#aboutExample'),
   startCounter: document.querySelectorAll('.start__counter'),
   isAnimated: false,
   scores: [],
@@ -46,16 +47,14 @@ elements.startCounter[0].addEventListener('transitionend', gameOver);
 ['scoresLnk', 'scoresBox', 'aboutLnk', 'aboutBox']
   .forEach((el) => {
     elements[el].addEventListener('click', (e) => {
-      playSound(audio.clickSound);
+      audio.playSound('clickSound');
     });
   });
 
 ['scoresBox', 'menuBox', 'aboutBox']
   .forEach((el) => {
     elements[el].addEventListener('transitionend', (e) => {
-      if ('visibility' === e.propertyName && elements[el] === e.target) {
-        elements.isAnimated = false;
-      }
+      elements.isAnimated = false;
     });
   });
 
@@ -92,11 +91,7 @@ function openScores(gameOver) {
 
 function closeBoard() {
   toggleModal(this);
-  audio.gainNodeGame.gain.exponentialRampToValueAtTime(0.00001, audio.context.currentTime + 3.0);
-  audio.musicGame.stop(audio.context.currentTime + 3.0);
-  createAudio();
-  audio.gainNodeMenu.gain.setValueAtTime(0.07, audio.context.currentTime);
-  audio.musicMenu.start();
+  audio.swapMusic('game', 'menu');
   
   setTimeout(() => {
     elements.readyShevron.classList.remove('u--unscale');
@@ -113,11 +108,7 @@ function openBoard() {
   elements.verSegments = 2;
   elements.horSegments = 2;
   toggleModal(this);
-  audio.gainNodeMenu.gain.exponentialRampToValueAtTime(0.00001, audio.context.currentTime + 3.0);
-  audio.musicMenu.stop(audio.context.currentTime + 3.0);
-  createAudio();
-  audio.gainNodeGame.gain.setValueAtTime(0.1, audio.context.currentTime);
-  audio.musicGame.start();
+  audio.swapMusic('menu', 'game');
   
   setTimeout(() => {
     elements.readyShevron.classList.add('u--unscale');
@@ -134,19 +125,21 @@ function checkForDuplicate() {
   if (this.classList.contains('selected')) {
     this.classList.remove('selected');
     elements.selected.pop();
-    playSound(audio.deselectChip);
+    audio.playSound('deselectChip');
     return;
   }
-  (!elements.selected.length) && playSound(audio.selectChip);
+  (!elements.selected.length) && audio.playSound('selectChip');
   this.classList.add('selected');
   elements.selected.push(this);
     if (elements.selected.length > 1) {
       let chipFist = elements.selected[0].classList.value.split(' ');
       let chipSecond = elements.selected[1].classList.value.split(' ');
       if (chipFist[1] === chipSecond[1] && chipFist[2] === chipSecond[2] && chipFist[3] === chipSecond[3]) {
-        playSound(audio.selectChip);
+        audio.playSound('selectChip');
         nextRound();
       } else {
+        elements.selected[0].classList.remove('selected', 'hover');
+        elements.selected[1].classList.remove('selected', 'hover');
         gameOver();
       }
     }
@@ -190,7 +183,7 @@ function generateChips() {
   
   playboard.innerHTML = elements.figures.join('');
   
-  elements.chips = document.querySelectorAll('.chip');
+  elements.chips = document.querySelectorAll('.start .chip');
   elements.chips.forEach((el) => {
     el.addEventListener('click', checkForDuplicate);
   });
@@ -210,7 +203,7 @@ function nextRound() {
 }
 
 function gameOver() {
-  playSound(audio.gameOver);
+  audio.playSound('gameOver');
   elements.scores.unshift(elements.currentScores);
   elements.nextHint && clearTimeout(elements.nextHint);
   isStorage && localStorage.setItem('fap-scores', elements.scores);
