@@ -11,7 +11,7 @@ Do your best in 55 seconds. Watch the red line (a time counter).<br>
 
 ## Run locally
 ```
-npm i
+npm install
 npm start
 ```
 
@@ -27,3 +27,6 @@ http://www.orangefreesounds.com/finger-snap/<br>
 http://www.orangefreesounds.com/failure-sound-effect/<br>
 http://www.orangefreesounds.com/button-sound/<br>
 http://www.orangefreesounds.com/button-sound-effect/<br>
+
+## License
+[MIT License](LICENSE.md)
