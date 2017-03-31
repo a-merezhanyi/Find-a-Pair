@@ -15,18 +15,5 @@ npm install
 npm start
 ```
 
-## Used
-http://lea.verou.me/css3patterns/<br>
-http://codepen.io/davidicus/pen/emgQKJ<br>
-http://codepen.io/ndeniche/pen/ljbDL<br>
-
-https://www.looperman.com/loops/detail/52496/the-death-of-gagarin-by-planetjazzbass-free-90bpm-ambient-electric-guitar-loop<br>
-https://www.looperman.com/loops/detail/54034/ambient-reality-pad-4-by-agp-free-140bpm-ambient-pad-loop
-
-http://www.orangefreesounds.com/finger-snap/<br>
-http://www.orangefreesounds.com/failure-sound-effect/<br>
-http://www.orangefreesounds.com/button-sound/<br>
-http://www.orangefreesounds.com/button-sound-effect/<br>
-
 ## License
 [MIT License](LICENSE.md)
