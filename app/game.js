@@ -32,10 +32,10 @@ const elements = {
   selected: [],
   nextHint: null
 };
-const randInteger = (min, max) => Math.round(Math.random() * (max - min) + min);
+const randInteger = (min, max) => Math.round(Math.random() * (max - min) + min); // Returns Random integer value
 const isStorage = 'undefined' !== typeof localStorage;
 
-['scoresBox', 'aboutLnk', 'aboutBox']
+['scoresBox', 'aboutLnk', 'aboutBox'] // Open a modal popup for these elements
   .forEach((el) => {
     elements[el].addEventListener('click', toggleModal);
   });
@@ -44,7 +44,7 @@ elements.exitLnk.addEventListener('click', closeBoard);
 elements.scoresLnk.addEventListener('click', openScores);
 elements.startCounter[0].addEventListener('transitionend', gameOver);
 
-['scoresLnk', 'scoresBox', 'aboutLnk', 'aboutBox']
+['scoresLnk', 'scoresBox', 'aboutLnk', 'aboutBox'] // Play 'click' sound for these elements
   .forEach((el) => {
     elements[el].addEventListener('click', (e) => {
       audio.playSound('clickSound');
