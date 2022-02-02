@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2017, Anatol Merezhanyi - https://github.com/e1r0nd/Find-a-Pair
+Copyright (c) 2017, Tolik Merezhanyi - https://github.com/a-merezhanyi/Find-a-Pair
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
