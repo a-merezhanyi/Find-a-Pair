@@ -10,7 +10,7 @@ You can review it at GH Pages here (Chrome provides the best experience) https:/
 
 Or you can try the preview version in CodeSandbox (Chrome is preffered) https://codesandbox.io/s/find-a-pair-vuoyis?file=/game.js
 
-Or run in locally (use Chrome for better experience)
+Or run it locally (use Chrome 😅)
 
 ```bash
 npm install && start
