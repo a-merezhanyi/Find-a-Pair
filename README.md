@@ -10,11 +10,15 @@ coded by A. Merezhanyi
 
 The story of creation https://www.youtube.com/playlist?list=PLEZfD_aygfgK_ZXni36THMSassXtqDbeC
 
-## Run locally
+You can try the preview version in CodeSandbox (Chrome is preffered) https://codesandbox.io/s/find-a-pair-vuoyis?file=/game.js
+
+Or run in locally (use Chrome for better experience)
+
 ```
 npm install
 npm start
 ```
 
 ## License
+
 [MIT License](LICENSE.md)
